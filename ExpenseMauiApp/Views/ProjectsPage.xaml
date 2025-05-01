@@ -1,0 +1,26 @@
+<ContentPage 
+    x:Class="ExpenseMauiApp.Views.ProjectsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Projects">
+  <StackLayout Padding="10">
+    <SearchBar x:Name="searchBar"
+               Placeholder="Search projects by name or date"
+               TextChanged="OnSearchBarTextChanged" />
+    <CollectionView x:Name="projectsCollectionView">
+      <CollectionView.ItemTemplate>
+        <DataTemplate>
+          <Frame Padding="10" Margin="5">
+            <StackLayout>
+              <Label Text="{Binding ProjectName}" FontAttributes="Bold" />
+              <Label Text="{Binding ProjectID}" />
+              <Label Text="{Binding StartDate, StringFormat='Start: {0:dd/MM/yyyy}'}" />
+              <Label Text="{Binding EndDate, StringFormat='End: {0:dd/MM/yyyy}'}" />
+              <Label Text="{Binding Status}"/>
+            </StackLayout>
+          </Frame>
+        </DataTemplate>
+      </CollectionView.ItemTemplate>
+    </CollectionView>
+  </StackLayout>
+</ContentPage>

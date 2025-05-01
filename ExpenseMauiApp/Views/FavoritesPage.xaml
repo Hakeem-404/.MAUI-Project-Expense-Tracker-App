@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    x:Class="ExpenseMauiApp.Views.FavoritesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Favorite Projects">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <CollectionView x:Name="projectsCollectionView" 
+                SelectionMode="Single"
+                SelectionChanged="OnProjectSelected"
+                Grid.Row="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                <Frame Margin="5" Padding="10" 
+                        BorderColor="#E0E0E0" 
+                        CornerRadius="8">
+                    <!-- Add a TapGestureRecognizer -->
+                    <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnItemTapped" />
+                    </Frame.GestureRecognizers>
+                    <Grid RowSpacing="5" ColumnSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" 
+                            Text="★" 
+                            TextColor="#FFC107"
+                            FontSize="24"
+                            VerticalOptions="Start" />
+
+                    <!-- Project Name - Primary Information -->
+                    <Label Text="{Binding ProjectName}" 
+                            Grid.Row="0" Grid.Column="1"
+                            FontAttributes="Bold" 
+                            TextColor="#673AB7"
+                            FontSize="18"/>
+                    
+                    <!-- Project ID -->
+                    <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                        <Label Text="ID: " FontAttributes="Bold" FontSize="14" TextColor="#757575"/>
+                        <Label Text="{Binding ProjectID}" FontSize="14" TextColor="#757575"/>
+                    </StackLayout>
+                    
+                    <!-- Project Manager -->
+                    <StackLayout Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                        <Label Text="Manager: " FontAttributes="Bold" FontSize="14"/>
+                        <Label Text="{Binding Manager}" FontSize="14"/>
+                    </StackLayout>
+                    
+                    <!-- Project Status -->
+                    <StackLayout Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                        <Label Text="Status: " FontAttributes="Bold" FontSize="14"/>
+                        <Label Text="{Binding ProjectStatus}" TextColor="#4CAF50"/>
+                    </StackLayout>
+
+                    <!-- Budget - Right Side -->
+                    <StackLayout Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
+                                HorizontalOptions="End" VerticalOptions="Center">
+                        <Label Text="Budget: " FontAttributes="Bold" FontSize="14" 
+                            HorizontalOptions="End"/>
+                        <Label Text="{Binding Budget, StringFormat='£{0:N2}'}" 
+                            FontAttributes="Bold" 
+                            TextColor="#4CAF50"
+                            HorizontalOptions="End"/>
+                    </StackLayout>
+                    
+                    <!-- Dates - Right Side -->
+                    <StackLayout Grid.Row="2" Grid.Column="2" Grid.RowSpan="2"
+                                HorizontalOptions="End" VerticalOptions="Center">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                        <Label Text="Start Date: " FontAttributes="Bold" FontSize="12"/>
+                        <Label Text="{Binding StartDate, StringFormat='{0:dd/MM/yyyy}'}" 
+                                FontSize="12"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                        <Label Text="End Date: " FontAttributes="Bold" FontSize="12"/>
+                        <Label Text="{Binding EndDate, StringFormat='{0:dd/MM/yyyy}'}" 
+                                FontSize="12"/>
+                        </StackLayout>
+                    </StackLayout>
+                    </Grid>
+                </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="No favorite projects" FontSize="18" HorizontalTextAlignment="Center" />
+                <Label Text="Star projects to add them to your favorites" FontSize="14" HorizontalTextAlignment="Center" />
+                </StackLayout>
+            </CollectionView.EmptyView>
+            </CollectionView>
+
+        <ActivityIndicator x:Name="activityIndicator" IsRunning="False" 
+                           Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" />
+    </Grid>
+</ContentPage>
